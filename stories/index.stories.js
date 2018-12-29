@@ -11,12 +11,13 @@ import { Calendar } from '../src/index';
 const state = {
   type: 2,
   styles: {
-    headerTextColor: "red",
+    headerTextColor: "yellow",
     fontFamiliy: "cursive"
   },
   rawDayTextObject: {
     "20181220":"dfdf",
     "20181221":"dfdfdd",
+    "20181201" : "테스트",
   }
 }
 

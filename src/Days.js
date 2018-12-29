@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import PropTypes from 'prop-types';
 import './Days.css';
-import './global';
 import Day from './Day';
 
 //type => 1: 날짜 여러개 선택, 2: 날짜 범위 선택, 3: 날짜에 텍스트 쓰기
@@ -104,10 +103,6 @@ class Days extends Component{
           return true;
     }
     return false;
-  }
-
-  _getSelectedDay = (selectedDay) => {
-    // this.props._getSelectedDay
   }
 
   render(){

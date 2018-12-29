@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import './Calendar.css'
 import CalendarBody from './CalendarBody';
 import CalendarForm from './CalendarForm';
-import './global';
+import {soonHeeCalendar} from './global';
 
 class Calendar extends Component{
   static getDerivedStateFromProps(props, state){
@@ -25,13 +25,13 @@ class Calendar extends Component{
 
   constructor(props){
     super(props);
-
+    
     this.date = this._currentDate('Seoul', '+9');
     this.state = {
       date: this.date,
       year: this.date.getFullYear(),
       month: this.date.getMonth(),
-      type: props.type || 1,
+      type: props.type || 1, // 1 : 다중 선택, 2 : 범위 선택, 3 : 클릭한 날짜를 다시 클릭 했을 시 메모
       styles: props.styles
     };
 
@@ -39,7 +39,7 @@ class Calendar extends Component{
     this._nextMonth = this._nextMonth.bind(this);
 
     if (props.rawDayTextObject != undefined){
-        global.dayTextObject = this._rawDateObjToMillisecondsObj(props.rawDayTextObject);
+        soonHeeCalendar.dayTextObject = this._rawDateObjToMillisecondsObj(props.rawDayTextObject);
     }
   }
 
@@ -50,7 +50,7 @@ class Calendar extends Component{
       document.body.style.fontFamiliy = styles.fontFamiliy;
     }
 
-    global.formContainer = document.querySelector(".form-container");
+    soonHeeCalendar.formContainer = document.querySelector(".form-container");
     this.formContainer = document.querySelector(".form-container");
   }
 
@@ -101,9 +101,10 @@ class Calendar extends Component{
 
   _getFormData = (e) => {
     this.formContainer.style.display = "none";
-    if (global.textSelectedDay !== undefined){
-        global.dayTextObject[global.textSelectedDay] = e.text;
+    if (soonHeeCalendar.textSelectedDay !== undefined){
+        soonHeeCalendar.dayTextObject[soonHeeCalendar.textSelectedDay] = e.text;
     }
+    console.log(soonHeeCalendar.dayTextObject);
     this.setState({
 
     });

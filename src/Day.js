@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import PropTypes from 'prop-types';
 import './Day.css';
-import './global';
+import {soonHeeCalendar} from './global';
 
 
 class Day extends Component{
@@ -13,7 +13,7 @@ class Day extends Component{
       milliseconds: props.milliseconds,
       type: props.type,
       isActivate: this._checkActivate(props.milliseconds, props.type),
-      text: global.dayTextObject[props.milliseconds]
+      text: soonHeeCalendar.dayTextObject[props.milliseconds]
     };
 
     this._selectDay = this._selectDay.bind(this);
@@ -28,7 +28,7 @@ class Day extends Component{
   //       milliseconds: props.milliseconds,
   //       type: props.type,
   //       isActivate: this._checkActivate(props.milliseconds, props.type),
-  //       text: global.dayTextObject[props.milliseconds]
+  //       text: soonHeeCalendar.dayTextObject[props.milliseconds]
   //     };
   //   }
   //   return null;
@@ -40,24 +40,24 @@ class Day extends Component{
       milliseconds: props.milliseconds,
       type: props.type,
       isActivate: this._checkActivate(props.milliseconds, props.type),
-      text: global.dayTextObject[props.milliseconds]
+      text: soonHeeCalendar.dayTextObject[props.milliseconds]
     });
   }
 
   _checkActivate = (milliseconds, type) => {
       switch(type){
         case 1:
-          if (global.selectedDays.length > 0){
-            return global.selectedDays.includes(milliseconds);
+          if (soonHeeCalendar.selectedDays.length > 0){
+            return soonHeeCalendar.selectedDays.includes(milliseconds);
           }
           break;
         case 2:
           let result = false;
-          let startDate = global.startEndDateArr[0]["startDate"];
-          let endDate = global.startEndDateArr[0]["endDate"]
+          let startDate = soonHeeCalendar.startEndDateArr[0]["startDate"];
+          let endDate = soonHeeCalendar.startEndDateArr[0]["endDate"]
 
-          if (global.daysInRange.length > 0){
-              return global.daysInRange.includes(milliseconds);
+          if (soonHeeCalendar.daysInRange.length > 0){
+              return soonHeeCalendar.daysInRange.includes(milliseconds);
           }else{
             if (startDate !== undefined){
               if (startDate === milliseconds) {result = true;}
@@ -79,27 +79,29 @@ class Day extends Component{
   }
 
   _selectDay = () => {
+
     var changedActivate = !this.state.isActivate;
     if (changedActivate){
-        global.selectedDays.push(this.state.milliseconds);
+        soonHeeCalendar.selectedDays.push(this.state.milliseconds);
     }else{
-        global.selectedDays = global.selectedDays.filter(val => val !== this.state.milliseconds);
+        soonHeeCalendar.selectedDays = soonHeeCalendar.selectedDays.filter(val => val !== this.state.milliseconds);
     }
+    console.log(soonHeeCalendar.selectedDays)
     this.setState({
       isActivate: changedActivate
     })
   }
 
   _rangingDays = (e, state) => {
-    let startDate = global.startEndDateArr[0]["startDate"],
-      endDate = global.startEndDateArr[0]["endDate"];
+    let startDate = soonHeeCalendar.startEndDateArr[0]["startDate"],
+      endDate = soonHeeCalendar.startEndDateArr[0]["endDate"];
 
     if (startDate === undefined){
       let changedActivate = !state.isActivate;
       if (changedActivate){
-        global.startEndDateArr[0]["startDate"] = state.milliseconds;
+        soonHeeCalendar.startEndDateArr[0]["startDate"] = state.milliseconds;
       }else{
-        delete global.startEndDateArr[0]["startDate"];
+        delete soonHeeCalendar.startEndDateArr[0]["startDate"];
       }
 
       this.setState({
@@ -111,17 +113,17 @@ class Day extends Component{
 
       if (changedActivate){
         if (startDate < state.milliseconds){
-          endDate = global.startEndDateArr[0]["endDate"] = state.milliseconds;
+          endDate = soonHeeCalendar.startEndDateArr[0]["endDate"] = state.milliseconds;
         }else{
-          endDate = global.startEndDateArr[0]["endDate"] = startDate;
-          startDate = global.startEndDateArr[0]["startDate"] = state.milliseconds;
+          endDate = soonHeeCalendar.startEndDateArr[0]["endDate"] = startDate;
+          startDate = soonHeeCalendar.startEndDateArr[0]["startDate"] = state.milliseconds;
         }
       }else{
-        delete global.startEndDateArr[0]["endDate"];
+        delete soonHeeCalendar.startEndDateArr[0]["endDate"];
       }
 
       for (var dayInRange = startDate; dayInRange <= endDate; dayInRange+=dayToMilliSeconds){
-          global.daysInRange.push(dayInRange);
+          soonHeeCalendar.daysInRange.push(dayInRange);
       }
 
       this.setState({
@@ -129,10 +131,10 @@ class Day extends Component{
       });
 
       this.props.dayToggle()
-    }else if (global.daysInRange.length > 0){
-      delete global.startEndDateArr[0]["endDate"];
-      global.startEndDateArr[0]["startDate"] = state.milliseconds;
-      global.daysInRange = []
+    }else if (soonHeeCalendar.daysInRange.length > 0){
+      delete soonHeeCalendar.startEndDateArr[0]["endDate"];
+      soonHeeCalendar.startEndDateArr[0]["startDate"] = state.milliseconds;
+      soonHeeCalendar.daysInRange = []
       this.setState({
         isActivate: !state.isActivate,
       });
@@ -143,14 +145,13 @@ class Day extends Component{
   _setTextDay = () => {
     var changedActivate = !this.state.isActivate;
     if (changedActivate){
-      global.textSelectedDay = this.state.milliseconds;
-      global.selectedDay = this.state.milliseconds;
+      soonHeeCalendar.textSelectedDay = this.state.milliseconds;
+
       this.setState({
         isActivate: changedActivate
       })
     }else{
-      if (global.selectedDay !== 0){
-        global.selectedDay = 0
+      if (soonHeeCalendar.textSelectedDay !== 0){
         document.querySelector(".form-container").style.display = "block";
       }else{
         this.setState({
@@ -161,7 +162,6 @@ class Day extends Component{
   }
 
   _clickMethodByType = (type) => {
-    console.log(type);
     switch (type) {
       case 1:
         this._selectDay();
