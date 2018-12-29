@@ -6,30 +6,50 @@ import CalendarForm from './CalendarForm';
 import './global';
 
 class Calendar extends Component{
-  componentWillReceiveProps(props){
-    this.setState({
-      type: props.type,
-    })
+  static getDerivedStateFromProps(props, state){
+    let type = 1;
+    if (props.type != undefined) type = props.type;
+
+    if (type != state.type){
+      return{
+        type: type,
+      };
+    }
+    return null;
   }
+  // componentWillReceiveProps(props){
+  //   this.setState({
+  //     type: props.type,
+  //   })
+  // }
 
   constructor(props){
     super(props);
+
     this.date = this._currentDate('Seoul', '+9');
     this.state = {
       date: this.date,
       year: this.date.getFullYear(),
       month: this.date.getMonth(),
-      type: props.type,
+      type: props.type || 1,
       styles: props.styles
     };
+
     this._prevMonth = this._prevMonth.bind(this);
     this._nextMonth = this._nextMonth.bind(this);
-    global.dayTextObject = this._rawDateObjToMillisecondsObj(props.rawDayTextObject);
-    console.log(global);
+
+    if (props.rawDayTextObject != undefined){
+        global.dayTextObject = this._rawDateObjToMillisecondsObj(props.rawDayTextObject);
+    }
   }
 
   componentDidMount(){
-    document.querySelector(".calendarYearMonth").style.color = this.state.styles.headerTextColor;
+    if (this.state.styles != undefined){
+      let styles = this.state.styles;
+      document.querySelector(".calendarYearMonth").style.color = styles.headerTextColor;
+      document.body.style.fontFamiliy = styles.fontFamiliy;
+    }
+
     global.formContainer = document.querySelector(".form-container");
     this.formContainer = document.querySelector(".form-container");
   }
@@ -110,7 +130,7 @@ class Calendar extends Component{
       <div className="calendar-container">
         <Header prevMonth={this._prevMonth} nextMonth={this._nextMonth} year={this.state.year} month={this.state.month}/>
         <div className="body-container">
-          <CalendarBody year={this.state.year} month={this.state.month} type={parseInt(this.state.type)} />
+          <CalendarBody year={this.state.year} month={this.state.month} type={this.state.type} />
           <div className="form-container">
             <CalendarForm onCreate={this._getFormData}/>
           </div>

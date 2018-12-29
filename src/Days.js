@@ -7,23 +7,35 @@ import Day from './Day';
 //type => 1: 날짜 여러개 선택, 2: 날짜 범위 선택, 3: 날짜에 텍스트 쓰기
 
 class Days extends Component{
-  componentWillReceiveProps(props){
-    this.setState({
-      month: props.month,
-      year: props.year,
-      type: props.type,
-      daysArray: this._getDaysArray(this._getFirstDay(props.year, props.month), this._daysInMonth(props.year, props.month))
-    })
+  static getDerivedStateFromProps(props, state){
+    if (props.month != state.month || props.type != state.type){
+      return{
+        month: props.month,
+        year: props.year,
+        type: props.type,
+        daysArray: Days._getDaysArray(Days._getFirstDay(props.year, props.month), Days._daysInMonth(props.year, props.month))
+      };
+    }
+    return null;
   }
+  // componentWillReceiveProps(props){
+  //   this.setState({
+  //     month: props.month,
+  //     year: props.year,
+  //     type: props.type,
+  //     daysArray: this._getDaysArray(this._getFirstDay(props.year, props.month), this._daysInMonth(props.year, props.month))
+  //   })
+  // }
 
   constructor(props){
     super(props);
 
+    console.log(props);
     this.state = {
       month: props.month,
       year: props.year,
       type: props.type,
-      daysArray: this._getDaysArray(this._getFirstDay(props.year, props.month), this._daysInMonth(props.year, props.month))
+      daysArray: Days._getDaysArray(Days._getFirstDay(props.year, props.month), Days._daysInMonth(props.year, props.month))
     };
 
     this._changeToMilliseconds = this._changeToMilliseconds.bind(this);
@@ -33,15 +45,15 @@ class Days extends Component{
     this.setState({})
   }
 
-  _daysInMonth = (year, month) => {
+  static _daysInMonth = (year, month) => {
     return new Date(year, month+1, 0).getDate();
   }
 
-  _getFirstDay = (year, month) => {
+  static _getFirstDay = (year, month) => {
     return new Date(year, month, 1).getDay();
   }
 
-  _getDaysArray = (blankCount, daysCount) => {
+  static _getDaysArray = (blankCount, daysCount) => {
     var arr = [];
     let share = Math.floor((daysCount + blankCount) / 7);
     let rowCount = share + (share > 0 ? 1 : 0);

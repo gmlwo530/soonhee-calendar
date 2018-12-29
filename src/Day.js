@@ -21,6 +21,19 @@ class Day extends Component{
     this._rangingDays = this._rangingDays.bind(this, props);
   }
 
+  // static getDerivedStateFromProps(props, state){
+  //   if (props != state){
+  //     return{
+  //       day: props.day,
+  //       milliseconds: props.milliseconds,
+  //       type: props.type,
+  //       isActivate: this._checkActivate(props.milliseconds, props.type),
+  //       text: global.dayTextObject[props.milliseconds]
+  //     };
+  //   }
+  //   return null;
+  // }
+
   componentWillReceiveProps(props){
     this.setState({
       day: props.day,
@@ -148,6 +161,7 @@ class Day extends Component{
   }
 
   _clickMethodByType = (type) => {
+    console.log(type);
     switch (type) {
       case 1:
         this._selectDay();
