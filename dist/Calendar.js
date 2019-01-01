@@ -24,7 +24,7 @@ var _CalendarForm = require('./CalendarForm');
 
 var _CalendarForm2 = _interopRequireDefault(_CalendarForm);
 
-require('./global');
+var _global = require('./global');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -41,13 +41,25 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var Calendar = function (_Component) {
   _inherits(Calendar, _Component);
 
-  _createClass(Calendar, [{
-    key: 'componentWillReceiveProps',
-    value: function componentWillReceiveProps(props) {
-      this.setState({
-        type: props.type
-      });
+  _createClass(Calendar, null, [{
+    key: 'getDerivedStateFromProps',
+    value: function getDerivedStateFromProps(props, state) {
+      var type = 1;
+      if (props.type != undefined) type = props.type;
+
+      if (type != state.type) {
+        return {
+          type: type
+        };
+      }
+      return null;
     }
+    // componentWillReceiveProps(props){
+    //   this.setState({
+    //     type: props.type,
+    //   })
+    // }
+
   }]);
 
   function Calendar(props) {
@@ -102,9 +114,10 @@ var Calendar = function (_Component) {
 
     _this._getFormData = function (e) {
       _this.formContainer.style.display = "none";
-      if (global.textSelectedDay !== undefined) {
-        global.dayTextObject[global.textSelectedDay] = e.text;
+      if (_global.soonHeeCalendar.textSelectedDay !== undefined) {
+        _global.soonHeeCalendar.dayTextObject[_global.soonHeeCalendar.textSelectedDay] = e.text;
       }
+      console.log(_global.soonHeeCalendar.dayTextObject);
       _this.setState({});
     };
 
@@ -128,13 +141,15 @@ var Calendar = function (_Component) {
       date: _this.date,
       year: _this.date.getFullYear(),
       month: _this.date.getMonth(),
-      type: props.type || 1
-      // styles: props.styles ||
+      type: props.type || 1, // 1 : 다중 선택, 2 : 범위 선택, 3 : 클릭한 날짜를 다시 클릭 했을 시 메모
+      styles: props.styles
     };
+
     _this._prevMonth = _this._prevMonth.bind(_this);
     _this._nextMonth = _this._nextMonth.bind(_this);
+
     if (props.rawDayTextObject != undefined) {
-      global.dayTextObject = _this._rawDateObjToMillisecondsObj(props.rawDayTextObject);
+      _global.soonHeeCalendar.dayTextObject = _this._rawDateObjToMillisecondsObj(props.rawDayTextObject);
     }
     return _this;
   }
@@ -142,8 +157,13 @@ var Calendar = function (_Component) {
   _createClass(Calendar, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      // document.querySelector(".calendarYearMonth").style.color = this.state.styles.headerTextColor;
-      global.formContainer = document.querySelector(".form-container");
+      if (this.state.styles != undefined) {
+        var styles = this.state.styles;
+        document.querySelector(".calendarYearMonth").style.color = styles.headerTextColor;
+        document.body.style.fontFamiliy = styles.fontFamiliy;
+      }
+
+      _global.soonHeeCalendar.formContainer = document.querySelector(".form-container");
       this.formContainer = document.querySelector(".form-container");
     }
   }, {
@@ -156,7 +176,7 @@ var Calendar = function (_Component) {
         _react2.default.createElement(
           'div',
           { className: 'body-container' },
-          _react2.default.createElement(_CalendarBody2.default, { year: this.state.year, month: this.state.month, type: parseInt(this.state.type) }),
+          _react2.default.createElement(_CalendarBody2.default, { year: this.state.year, month: this.state.month, type: this.state.type }),
           _react2.default.createElement(
             'div',
             { className: 'form-container' },

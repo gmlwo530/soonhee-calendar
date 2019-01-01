@@ -16,8 +16,6 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 require('./Days.css');
 
-require('./global');
-
 var _Day = require('./Day');
 
 var _Day2 = _interopRequireDefault(_Day);
@@ -35,16 +33,28 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var Days = function (_Component) {
   _inherits(Days, _Component);
 
-  _createClass(Days, [{
-    key: 'componentWillReceiveProps',
-    value: function componentWillReceiveProps(props) {
-      this.setState({
-        month: props.month,
-        year: props.year,
-        type: props.type,
-        daysArray: this._getDaysArray(this._getFirstDay(props.year, props.month), this._daysInMonth(props.year, props.month))
-      });
+  _createClass(Days, null, [{
+    key: 'getDerivedStateFromProps',
+    value: function getDerivedStateFromProps(props, state) {
+      if (props.month != state.month || props.type != state.type) {
+        return {
+          month: props.month,
+          year: props.year,
+          type: props.type,
+          daysArray: Days._getDaysArray(Days._getFirstDay(props.year, props.month), Days._daysInMonth(props.year, props.month))
+        };
+      }
+      return null;
     }
+    // componentWillReceiveProps(props){
+    //   this.setState({
+    //     month: props.month,
+    //     year: props.year,
+    //     type: props.type,
+    //     daysArray: this._getDaysArray(this._getFirstDay(props.year, props.month), this._daysInMonth(props.year, props.month))
+    //   })
+    // }
+
   }]);
 
   function Days(props) {
@@ -54,55 +64,6 @@ var Days = function (_Component) {
 
     _this._onDayToggle = function () {
       _this.setState({});
-    };
-
-    _this._daysInMonth = function (year, month) {
-      return new Date(year, month + 1, 0).getDate();
-    };
-
-    _this._getFirstDay = function (year, month) {
-      return new Date(year, month, 1).getDay();
-    };
-
-    _this._getDaysArray = function (blankCount, daysCount) {
-      var arr = [];
-      var share = Math.floor((daysCount + blankCount) / 7);
-      var rowCount = share + (share > 0 ? 1 : 0);
-
-      var currentIndex = 1;
-
-      for (var i = 1; i < rowCount + 1; i++) {
-        var weekArr = [];
-
-        var index = 0;
-
-        while (index < 7) {
-          if (i === 1) {
-            if (index >= blankCount) {
-              weekArr[index] = currentIndex;
-              currentIndex += 1;
-            } else {
-              weekArr[index] = "";
-            }
-          } else if (i === rowCount) {
-            if (currentIndex > daysCount) {
-              weekArr[index] = "";
-              currentIndex += 1;
-            } else {
-              weekArr[index] = currentIndex;
-              currentIndex += 1;
-            }
-          } else {
-            weekArr[index] = currentIndex;
-            currentIndex += 1;
-          }
-
-          ++index;
-        }
-        arr.push(weekArr);
-      }
-
-      return arr;
     };
 
     _this._changeToMilliseconds = function (day) {
@@ -116,15 +77,12 @@ var Days = function (_Component) {
       return false;
     };
 
-    _this._getSelectedDay = function (selectedDay) {
-      // this.props._getSelectedDay
-    };
-
+    console.log(props);
     _this.state = {
       month: props.month,
       year: props.year,
       type: props.type,
-      daysArray: _this._getDaysArray(_this._getFirstDay(props.year, props.month), _this._daysInMonth(props.year, props.month))
+      daysArray: Days._getDaysArray(Days._getFirstDay(props.year, props.month), Days._daysInMonth(props.year, props.month))
     };
 
     _this._changeToMilliseconds = _this._changeToMilliseconds.bind(_this);
@@ -163,6 +121,55 @@ var Days = function (_Component) {
 
   return Days;
 }(_react.Component);
+
+Days._daysInMonth = function (year, month) {
+  return new Date(year, month + 1, 0).getDate();
+};
+
+Days._getFirstDay = function (year, month) {
+  return new Date(year, month, 1).getDay();
+};
+
+Days._getDaysArray = function (blankCount, daysCount) {
+  var arr = [];
+  var share = Math.floor((daysCount + blankCount) / 7);
+  var rowCount = share + (share > 0 ? 1 : 0);
+
+  var currentIndex = 1;
+
+  for (var i = 1; i < rowCount + 1; i++) {
+    var weekArr = [];
+
+    var index = 0;
+
+    while (index < 7) {
+      if (i === 1) {
+        if (index >= blankCount) {
+          weekArr[index] = currentIndex;
+          currentIndex += 1;
+        } else {
+          weekArr[index] = "";
+        }
+      } else if (i === rowCount) {
+        if (currentIndex > daysCount) {
+          weekArr[index] = "";
+          currentIndex += 1;
+        } else {
+          weekArr[index] = currentIndex;
+          currentIndex += 1;
+        }
+      } else {
+        weekArr[index] = currentIndex;
+        currentIndex += 1;
+      }
+
+      ++index;
+    }
+    arr.push(weekArr);
+  }
+
+  return arr;
+};
 
 exports.default = Days;
 

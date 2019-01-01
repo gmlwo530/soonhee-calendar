@@ -3,28 +3,32 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-global.formContainer = undefined;
+global.soonHeeCalendar = new Object();
 
-global.dayTextObject = {};
+global.soonHeeCalendar.formContainer = undefined;
 
-global.textSelectedDay = undefined;
+global.soonHeeCalendar.dayTextObject = {};
 
-global.selectedDays = [];
+global.soonHeeCalendar.textSelectedDay = undefined;
 
-global.daysInRange = [];
+global.soonHeeCalendar.selectedDays = [];
 
-global.startEndDateArr = [{ "startDate": undefined, "endDate": undefined }];
+global.soonHeeCalendar.daysInRange = [];
+
+global.soonHeeCalendar.startEndDateArr = [{ "startDate": undefined, "endDate": undefined }];
 
 var initializeGlobal = exports.initializeGlobal = function initializeGlobal() {
-  global.formContainer = undefined;
+  global.soonHeeCalendar.formContainer = undefined;
 
-  global.dayTextObject = {};
+  global.soonHeeCalendar.dayTextObject = {};
 
-  global.textSelectedDay = undefined;
+  global.soonHeeCalendar.textSelectedDay = undefined;
 
-  global.selectedDays = [];
+  global.soonHeeCalendar.selectedDays = [];
 
-  global.daysInRange = [];
+  global.soonHeeCalendar.daysInRange = [];
 
-  global.startEndDateArr = [{ "startDate": undefined, "endDate": undefined }];
+  global.soonHeeCalendar.startEndDateArr = [{ "startDate": undefined, "endDate": undefined }];
 };
+
+var soonHeeCalendar = exports.soonHeeCalendar = global.soonHeeCalendar;

@@ -16,7 +16,7 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 require('./Day.css');
 
-require('./global');
+var _global = require('./global');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -37,17 +37,17 @@ var Day = function (_Component) {
     _this._checkActivate = function (milliseconds, type) {
       switch (type) {
         case 1:
-          if (global.selectedDays.length > 0) {
-            return global.selectedDays.includes(milliseconds);
+          if (_global.soonHeeCalendar.selectedDays.length > 0) {
+            return _global.soonHeeCalendar.selectedDays.includes(milliseconds);
           }
           break;
         case 2:
           var result = false;
-          var startDate = global.startEndDateArr[0]["startDate"];
-          var endDate = global.startEndDateArr[0]["endDate"];
+          var startDate = _global.soonHeeCalendar.startEndDateArr[0]["startDate"];
+          var endDate = _global.soonHeeCalendar.startEndDateArr[0]["endDate"];
 
-          if (global.daysInRange.length > 0) {
-            return global.daysInRange.includes(milliseconds);
+          if (_global.soonHeeCalendar.daysInRange.length > 0) {
+            return _global.soonHeeCalendar.daysInRange.includes(milliseconds);
           } else {
             if (startDate !== undefined) {
               if (startDate === milliseconds) {
@@ -73,29 +73,31 @@ var Day = function (_Component) {
     };
 
     _this._selectDay = function () {
+
       var changedActivate = !_this.state.isActivate;
       if (changedActivate) {
-        global.selectedDays.push(_this.state.milliseconds);
+        _global.soonHeeCalendar.selectedDays.push(_this.state.milliseconds);
       } else {
-        global.selectedDays = global.selectedDays.filter(function (val) {
+        _global.soonHeeCalendar.selectedDays = _global.soonHeeCalendar.selectedDays.filter(function (val) {
           return val !== _this.state.milliseconds;
         });
       }
+      console.log(_global.soonHeeCalendar.selectedDays);
       _this.setState({
         isActivate: changedActivate
       });
     };
 
     _this._rangingDays = function (e, state) {
-      var startDate = global.startEndDateArr[0]["startDate"],
-          endDate = global.startEndDateArr[0]["endDate"];
+      var startDate = _global.soonHeeCalendar.startEndDateArr[0]["startDate"],
+          endDate = _global.soonHeeCalendar.startEndDateArr[0]["endDate"];
 
       if (startDate === undefined) {
         var changedActivate = !state.isActivate;
         if (changedActivate) {
-          global.startEndDateArr[0]["startDate"] = state.milliseconds;
+          _global.soonHeeCalendar.startEndDateArr[0]["startDate"] = state.milliseconds;
         } else {
-          delete global.startEndDateArr[0]["startDate"];
+          delete _global.soonHeeCalendar.startEndDateArr[0]["startDate"];
         }
 
         _this.setState({
@@ -107,17 +109,17 @@ var Day = function (_Component) {
 
         if (_changedActivate) {
           if (startDate < state.milliseconds) {
-            endDate = global.startEndDateArr[0]["endDate"] = state.milliseconds;
+            endDate = _global.soonHeeCalendar.startEndDateArr[0]["endDate"] = state.milliseconds;
           } else {
-            endDate = global.startEndDateArr[0]["endDate"] = startDate;
-            startDate = global.startEndDateArr[0]["startDate"] = state.milliseconds;
+            endDate = _global.soonHeeCalendar.startEndDateArr[0]["endDate"] = startDate;
+            startDate = _global.soonHeeCalendar.startEndDateArr[0]["startDate"] = state.milliseconds;
           }
         } else {
-          delete global.startEndDateArr[0]["endDate"];
+          delete _global.soonHeeCalendar.startEndDateArr[0]["endDate"];
         }
 
         for (var dayInRange = startDate; dayInRange <= endDate; dayInRange += dayToMilliSeconds) {
-          global.daysInRange.push(dayInRange);
+          _global.soonHeeCalendar.daysInRange.push(dayInRange);
         }
 
         _this.setState({
@@ -125,10 +127,10 @@ var Day = function (_Component) {
         });
 
         _this.props.dayToggle();
-      } else if (global.daysInRange.length > 0) {
-        delete global.startEndDateArr[0]["endDate"];
-        global.startEndDateArr[0]["startDate"] = state.milliseconds;
-        global.daysInRange = [];
+      } else if (_global.soonHeeCalendar.daysInRange.length > 0) {
+        delete _global.soonHeeCalendar.startEndDateArr[0]["endDate"];
+        _global.soonHeeCalendar.startEndDateArr[0]["startDate"] = state.milliseconds;
+        _global.soonHeeCalendar.daysInRange = [];
         _this.setState({
           isActivate: !state.isActivate
         });
@@ -139,14 +141,13 @@ var Day = function (_Component) {
     _this._setTextDay = function () {
       var changedActivate = !_this.state.isActivate;
       if (changedActivate) {
-        global.textSelectedDay = _this.state.milliseconds;
-        global.selectedDay = _this.state.milliseconds;
+        _global.soonHeeCalendar.textSelectedDay = _this.state.milliseconds;
+
         _this.setState({
           isActivate: changedActivate
         });
       } else {
-        if (global.selectedDay !== 0) {
-          global.selectedDay = 0;
+        if (_global.soonHeeCalendar.textSelectedDay !== 0) {
           document.querySelector(".form-container").style.display = "block";
         } else {
           _this.setState({
@@ -186,7 +187,7 @@ var Day = function (_Component) {
       milliseconds: props.milliseconds,
       type: props.type,
       isActivate: _this._checkActivate(props.milliseconds, props.type),
-      text: global.dayTextObject[props.milliseconds]
+      text: _global.soonHeeCalendar.dayTextObject[props.milliseconds]
     };
 
     _this._selectDay = _this._selectDay.bind(_this);
@@ -194,6 +195,19 @@ var Day = function (_Component) {
     _this._rangingDays = _this._rangingDays.bind(_this, props);
     return _this;
   }
+
+  // static getDerivedStateFromProps(props, state){
+  //   if (props != state){
+  //     return{
+  //       day: props.day,
+  //       milliseconds: props.milliseconds,
+  //       type: props.type,
+  //       isActivate: this._checkActivate(props.milliseconds, props.type),
+  //       text: soonHeeCalendar.dayTextObject[props.milliseconds]
+  //     };
+  //   }
+  //   return null;
+  // }
 
   _createClass(Day, [{
     key: 'componentWillReceiveProps',
@@ -203,7 +217,7 @@ var Day = function (_Component) {
         milliseconds: props.milliseconds,
         type: props.type,
         isActivate: this._checkActivate(props.milliseconds, props.type),
-        text: global.dayTextObject[props.milliseconds]
+        text: _global.soonHeeCalendar.dayTextObject[props.milliseconds]
       });
     }
   }, {
