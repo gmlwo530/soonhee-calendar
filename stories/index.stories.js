@@ -4,7 +4,7 @@ import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { linkTo } from '@storybook/addon-links';
 
-import { Welcome } from '@storybook/react/demo';
+import { Button, Welcome } from '@storybook/react/demo';
 
 import { Calendar } from '../src/index';
 
@@ -21,9 +21,17 @@ const state = {
   }
 }
 
+const changeColor = () => {
+  console.log(1);
+}
+
+
 storiesOf('Welcome', module).add('to Storybook', () => <Welcome showApp={linkTo('Button')} />);
 
 storiesOf('Calendar', module)
   .add('start calendar', () => (
-    <Calendar type={state.type} styles={state.styles} rawDayTextObject={state.rawDayTextObject}/>
+    <div>
+      <Button onClick={changeColor}>Change Color</Button>
+      <Calendar type={state.type} styles={state.styles} rawDayTextObject={state.rawDayTextObject}/>
+    </div>
   ));
