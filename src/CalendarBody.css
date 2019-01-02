@@ -1,3 +1,4 @@
+
 table.calendar-body{
   max-width: 100%;
   width: 100%;
@@ -21,4 +22,7 @@ table.calendar-body tbody td{
   background: #ffffff;
   vertical-align: top;
   text-align: left;
+}
+table.calendar-body tbody tr{
+  height: 17%;
 }
