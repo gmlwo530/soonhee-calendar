@@ -100,14 +100,20 @@ class Day extends Component{
       let changedActivate = !state.isActivate;
       if (changedActivate){
         soonHeeCalendar.startEndDateArr[0]["startDate"] = state.milliseconds;
-      }else{
-        delete soonHeeCalendar.startEndDateArr[0]["startDate"];
       }
 
       this.setState({
         isActivate: changedActivate
       })
     }else if (endDate === undefined){
+      if (startDate === state.milliseconds){
+        delete soonHeeCalendar.startEndDateArr[0]["startDate"];
+        this.setState({
+          isActivate: !state.isActivate,
+        });
+        return false;
+      }
+
       let changedActivate = !state.isActivate;
       let dayToMilliSeconds = 86400000
 
@@ -186,10 +192,15 @@ class Day extends Component{
     }
   }
 
+  _isStartEndPoint = (milliseconds) => {
+    let startEndDate = soonHeeCalendar.startEndDateArr[0];
+    return (startEndDate.startDate == milliseconds) || (startEndDate.endDate == milliseconds);
+  }
+
   render(){
     return(
       <td className={this.state.day !== "" ? (this.state.isActivate ? "dayCell active" : "dayCell") : "no-day"} key={this.state.day} onClick={this._clickMethodByType.bind(this, this.state.type)}>
-        <p>{this.state.day}</p>
+        <p className={this._isStartEndPoint(this.state.milliseconds) ? "start-end-point" : ""}>{this.state.day}</p>
         {this.state.day !== "" ? (
           <ul className="day-text-box">
             <li className="day-text" style={{overflow: 'hidden', textOverflow: 'ellipsis'}}>{this._truncate(this.state.text)}</li>
