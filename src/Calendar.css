@@ -34,3 +34,12 @@
   top :0;
   display: none;
 }
+
+.calendar-button{
+  border: none;
+  padding: 20px;
+}
+.calendar-button svg{
+  font-size: 20px;
+  color: #FA7268;
+}

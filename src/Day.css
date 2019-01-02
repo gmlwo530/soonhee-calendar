@@ -10,18 +10,25 @@ td.dayCell{
    -webkit-user-select: none;
    user-select: none;
 }
+td.dayCell p{
+  margin: 8px 8px;
+}
 
 td.dayCell.active{
-  color: red;
+  color: white;
+  background-color: #FA7268;
 }
 
 ul.day-text-box{
   display: block;
+  background-color: #2d2d2d;
+  color: white;
 }
 
 li.day-text{
   font-size: 13px;
 }
+
 
 td.no-day{
   pointer-events: none;

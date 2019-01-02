@@ -4,6 +4,10 @@ import './Calendar.css'
 import CalendarBody from './CalendarBody';
 import CalendarForm from './CalendarForm';
 import {soonHeeCalendar} from './global';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faAngleRight } from '@fortawesome/free-solid-svg-icons'
+import { faAngleLeft } from '@fortawesome/free-solid-svg-icons'
+
 
 class Calendar extends Component{
   static getDerivedStateFromProps(props, state){
@@ -53,12 +57,6 @@ class Calendar extends Component{
   }
 
   componentDidMount(){
-    if (this.state.styles != undefined){
-      let styles = this.state.styles;
-      document.querySelector(".calendarYearMonth").style.color = styles.headerTextColor;
-      document.body.style.fontFamiliy = styles.fontFamiliy;
-    }
-
     soonHeeCalendar.formContainer = document.querySelector(".form-container");
     this.formContainer = document.querySelector(".form-container");
   }
@@ -153,9 +151,9 @@ class Calendar extends Component{
 function Header({prevMonth, nextMonth, year, month}){
   return(
     <div className="header-container">
-      <button className="calendar-prev-button" onClick={prevMonth}>prev</button>
-      <div className="calendarYearMonth">{year}/{month + 1}</div>
-      <button className="calendar-next-button" onClick={nextMonth}>next</button>
+      <button className="calendar-button" onClick={prevMonth}><FontAwesomeIcon icon={faAngleLeft}/></button>
+      <div className="calendarYearMonth">{year}.{month + 1}.</div>
+      <button className="calendar-button" onClick={nextMonth}><FontAwesomeIcon icon={faAngleRight}/></button>
     </div>
   )
 }

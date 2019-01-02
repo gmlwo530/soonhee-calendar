@@ -189,7 +189,7 @@ class Day extends Component{
   render(){
     return(
       <td className={this.state.day !== "" ? (this.state.isActivate ? "dayCell active" : "dayCell") : "no-day"} key={this.state.day} onClick={this._clickMethodByType.bind(this, this.state.type)}>
-        {this.state.day}
+        <p>{this.state.day}</p>
         {this.state.day !== "" ? (
           <ul className="day-text-box">
             <li className="day-text" style={{overflow: 'hidden', textOverflow: 'ellipsis'}}>{this._truncate(this.state.text)}</li>
