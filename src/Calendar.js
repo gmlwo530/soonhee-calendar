@@ -8,13 +8,22 @@ import {soonHeeCalendar} from './global';
 class Calendar extends Component{
   static getDerivedStateFromProps(props, state){
     let type = 1;
+    let backgroundColor = "#fff";
     if (props.type != undefined) type = props.type;
+    if (props.backgroundColor != undefined) backgroundColor = props.backgroundColor;
+
+    if (backgroundColor != state.backgroundColor){
+      return{
+        backgroundColor: backgroundColor,
+      }
+    }
 
     if (type != state.type){
       return{
         type: type,
       };
     }
+    
     return null;
   }
   // componentWillReceiveProps(props){
@@ -25,7 +34,7 @@ class Calendar extends Component{
 
   constructor(props){
     super(props);
-    
+
     this.date = this._currentDate('Seoul', '+9');
     this.state = {
       date: this.date,
