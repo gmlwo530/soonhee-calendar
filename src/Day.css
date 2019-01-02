@@ -22,3 +22,7 @@ ul.day-text-box{
 li.day-text{
   font-size: 13px;
 }
+
+td.no-day{
+  pointer-events: none;
+}
