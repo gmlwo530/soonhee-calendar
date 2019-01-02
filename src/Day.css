@@ -1,3 +1,5 @@
+
+
 ul, li{
   all:unset;
 }
@@ -15,8 +17,7 @@ td.dayCell p{
 }
 
 td.dayCell.active{
-  color: white;
-  background-color: #FA7268;
+  background-color: #FDF0EF;
 }
 
 ul.day-text-box{

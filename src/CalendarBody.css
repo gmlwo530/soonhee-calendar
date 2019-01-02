@@ -10,9 +10,9 @@ table.calendar-body{
 }
 
 table.calendar-body thead th{
-  border: 1px solid rgb(228, 231, 231);
   padding: 10px 0;
-  background: #ffffff;
+  background: #fa7268;
+  color: #fff;
 }
 
 table.calendar-body tbody td{

@@ -1,10 +1,17 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+*{
+  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
+}
+
 .calendar-container{
   width: 500px;
   height: 500px;
 }
 
 .calendarYearMonth{
-  color: #000000;
+  color: #2d2d2d;
 }
 
 .header-container{
@@ -42,4 +49,9 @@
 .calendar-button svg{
   font-size: 20px;
   color: #FA7268;
+}
+
+.calendarYearMonth{
+  font-size: 20px;
+  font-weight: bold;
 }
