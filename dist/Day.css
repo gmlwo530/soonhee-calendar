@@ -1,0 +1,45 @@
+
+
+ul, li{
+  all:unset;
+}
+
+td.dayCell{
+  color: black;
+  -ms-user-select: none;
+   -moz-user-select: -moz-none;
+   -khtml-user-select: none;
+   -webkit-user-select: none;
+   user-select: none;
+}
+td.dayCell p{
+  margin: 8px 8px;
+}
+
+td.dayCell.active{
+  background-color: #FDF0EF;
+}
+
+ul.day-text-box{
+  display: block;
+  background-color: #2d2d2d;
+  color: white;
+}
+
+li.day-text{
+  font-size: 13px;
+}
+
+p.start-end-point{
+  background: #fa7268;
+  width: 24px;
+  height: 24px;
+  line-height: 24px;
+  text-align: center;
+  border-radius: 24px;
+  color: white;
+}
+
+td.no-day{
+  pointer-events: none;
+}

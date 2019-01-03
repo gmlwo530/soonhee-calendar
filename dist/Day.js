@@ -96,14 +96,20 @@ var Day = function (_Component) {
         var changedActivate = !state.isActivate;
         if (changedActivate) {
           _global.soonHeeCalendar.startEndDateArr[0]["startDate"] = state.milliseconds;
-        } else {
-          delete _global.soonHeeCalendar.startEndDateArr[0]["startDate"];
         }
 
         _this.setState({
           isActivate: changedActivate
         });
       } else if (endDate === undefined) {
+        if (startDate === state.milliseconds) {
+          delete _global.soonHeeCalendar.startEndDateArr[0]["startDate"];
+          _this.setState({
+            isActivate: !state.isActivate
+          });
+          return false;
+        }
+
         var _changedActivate = !state.isActivate;
         var dayToMilliSeconds = 86400000;
 
@@ -182,6 +188,11 @@ var Day = function (_Component) {
       }
     };
 
+    _this._isStartEndPoint = function (milliseconds) {
+      var startEndDate = _global.soonHeeCalendar.startEndDateArr[0];
+      return startEndDate.startDate == milliseconds || startEndDate.endDate == milliseconds;
+    };
+
     _this.state = {
       day: props.day,
       milliseconds: props.milliseconds,
@@ -225,17 +236,25 @@ var Day = function (_Component) {
     value: function render() {
       return _react2.default.createElement(
         'td',
-        { className: this.state.isActivate ? "dayCell active" : "dayCell", key: this.state.day, onClick: this._clickMethodByType.bind(this, this.state.type) },
-        this.state.day,
-        this.state.day !== "" ? _react2.default.createElement(
-          'ul',
-          { className: 'day-text-box' },
+        { className: this.state.day !== "" ? this.state.isActivate ? "dayCell active" : "dayCell" : "no-day", key: this.state.day, onClick: this._clickMethodByType.bind(this, this.state.type) },
+        _react2.default.createElement(
+          'div',
+          null,
           _react2.default.createElement(
-            'li',
-            { className: 'day-text', style: { overflow: 'hidden', textOverflow: 'ellipsis' } },
-            this._truncate(this.state.text)
-          )
-        ) : ""
+            'p',
+            { className: this._isStartEndPoint(this.state.milliseconds) ? "start-end-point" : "" },
+            this.state.day
+          ),
+          this.state.day !== "" ? _react2.default.createElement(
+            'ul',
+            { className: 'day-text-box' },
+            _react2.default.createElement(
+              'li',
+              { className: 'day-text', style: { overflow: 'hidden', textOverflow: 'ellipsis' } },
+              this._truncate(this.state.text)
+            )
+          ) : ""
+        )
       );
     }
   }]);

@@ -26,6 +26,10 @@ var _CalendarForm2 = _interopRequireDefault(_CalendarForm);
 
 var _global = require('./global');
 
+var _reactFontawesome = require('@fortawesome/react-fontawesome');
+
+var _freeSolidSvgIcons = require('@fortawesome/free-solid-svg-icons');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -45,13 +49,22 @@ var Calendar = function (_Component) {
     key: 'getDerivedStateFromProps',
     value: function getDerivedStateFromProps(props, state) {
       var type = 1;
+      var backgroundColor = "#fff";
       if (props.type != undefined) type = props.type;
+      if (props.backgroundColor != undefined) backgroundColor = props.backgroundColor;
+
+      if (backgroundColor != state.backgroundColor) {
+        return {
+          backgroundColor: backgroundColor
+        };
+      }
 
       if (type != state.type) {
         return {
           type: type
         };
       }
+
       return null;
     }
     // componentWillReceiveProps(props){
@@ -157,12 +170,6 @@ var Calendar = function (_Component) {
   _createClass(Calendar, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      if (this.state.styles != undefined) {
-        var styles = this.state.styles;
-        document.querySelector(".calendarYearMonth").style.color = styles.headerTextColor;
-        document.body.style.fontFamiliy = styles.fontFamiliy;
-      }
-
       _global.soonHeeCalendar.formContainer = document.querySelector(".form-container");
       this.formContainer = document.querySelector(".form-container");
     }
@@ -201,20 +208,21 @@ function Header(_ref2) {
     { className: 'header-container' },
     _react2.default.createElement(
       'button',
-      { className: 'calendar-prev-button', onClick: prevMonth },
-      'prev'
+      { className: 'calendar-button', onClick: prevMonth },
+      _react2.default.createElement(_reactFontawesome.FontAwesomeIcon, { icon: _freeSolidSvgIcons.faAngleLeft })
     ),
     _react2.default.createElement(
       'div',
       { className: 'calendarYearMonth' },
       year,
-      '/',
-      month + 1
+      '.',
+      month + 1,
+      '.'
     ),
     _react2.default.createElement(
       'button',
-      { className: 'calendar-next-button', onClick: nextMonth },
-      'next'
+      { className: 'calendar-button', onClick: nextMonth },
+      _react2.default.createElement(_reactFontawesome.FontAwesomeIcon, { icon: _freeSolidSvgIcons.faAngleRight })
     )
   );
 }

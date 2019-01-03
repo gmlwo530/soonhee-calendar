@@ -1,6 +1,6 @@
 {
   "name": "soonhee-calendar",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "React Calendar Component",
   "author": "CHOI HEE JAE, JANG SOON HO",
   "license": "MIT",
@@ -16,7 +16,8 @@
   },
   "scripts": {
     "clean-dist": "rm -rf ./dist",
-    "build": "yarn run clean-dist && NODE_ENV=production `yarn bin`/babel ./src --out-dir ./dist",
+    "copy-css": "cp ./src/*.css ./dist",
+    "build": "yarn run clean-dist && NODE_ENV=production `yarn bin`/babel ./src --out-dir ./dist && yarn run copy-css",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },

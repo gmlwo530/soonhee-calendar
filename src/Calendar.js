@@ -27,7 +27,7 @@ class Calendar extends Component{
         type: type,
       };
     }
-    
+
     return null;
   }
   // componentWillReceiveProps(props){
