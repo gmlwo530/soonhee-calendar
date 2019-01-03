@@ -34,6 +34,7 @@ class Days extends Component{
       month: props.month,
       year: props.year,
       type: props.type,
+      backgroundColor: props.backgroundColor,
       daysArray: Days._getDaysArray(Days._getFirstDay(props.year, props.month), Days._daysInMonth(props.year, props.month))
     };
 
@@ -116,6 +117,7 @@ class Days extends Component{
                   day={day}
                   milliseconds={this._changeToMilliseconds(day)}
                   type={this.state.type}
+                  backgroundColor = {this.state.backgroundColor}
                   dayToggle={this._onDayToggle}
                    />)}
               </tr>

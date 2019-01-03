@@ -10,10 +10,7 @@ import { Calendar } from '../src/index';
 
 const state = {
   type: 2,
-  styles: {
-    headerTextColor: "yellow",
-    fontFamiliy: "cursive"
-  },
+  backgroundColor: '#fa7268',
   rawDayTextObject: {
     "20181220":"dfdf",
     "20181221":"dfdfdd",
@@ -22,9 +19,8 @@ const state = {
 }
 
 const changeColor = () => {
-  console.log(1);
+  console.log(1)
 }
-
 
 storiesOf('Welcome', module).add('to Storybook', () => <Welcome showApp={linkTo('Button')} />);
 
@@ -32,6 +28,6 @@ storiesOf('Calendar', module)
   .add('start calendar', () => (
     <div>
       <Button onClick={changeColor}>Change Color</Button>
-      <Calendar type={state.type} styles={state.styles} rawDayTextObject={state.rawDayTextObject}/>
+      <Calendar backgroundColor = {state.backgroundColor} type={state.type} rawDayTextObject={state.rawDayTextObject}/>
     </div>
   ));
