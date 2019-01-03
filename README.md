@@ -62,8 +62,6 @@ class Foo extends Components{
 
 ##### Change SoonHee Calendar Background-Color
 
-##### Change SoonHee Calendar Type
-
 ```javascript
 
 class Foo extends Components{
