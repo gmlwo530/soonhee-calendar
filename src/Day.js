@@ -108,7 +108,8 @@ class Day extends Component{
       }
 
       this.setState({
-        isActivate: changedActivate
+        isActivate: changedActivate,
+        backgroundColor: backgroundColor
       })
     }else if (endDate === undefined){
       if (startDate === state.milliseconds){
@@ -138,7 +139,8 @@ class Day extends Component{
       }
 
       this.setState({
-        isActivate: changedActivate
+        isActivate: changedActivate,
+        backgroundColor: backgroundColor
       });
 
       this.props.dayToggle()
@@ -159,14 +161,16 @@ class Day extends Component{
       soonHeeCalendar.textSelectedDay = this.state.milliseconds;
 
       this.setState({
-        isActivate: changedActivate
+        isActivate: changedActivate,
+        backgroundColor:backgroundColor
       })
     }else{
       if (soonHeeCalendar.textSelectedDay !== 0){
         document.querySelector(".form-container").style.display = "block";
       }else{
         this.setState({
-          isActivate: changedActivate
+          isActivate: changedActivate,
+          backgroundColor: backgroundColor
         })
       }
     }
