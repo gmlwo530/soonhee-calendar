@@ -2,23 +2,28 @@ import React from "react";
 import './CalendarBody.css'
 import Days from './Days'
 
-function CalendarBody({year, month, type}) {
+function CalendarBody({backgroundColor, year, month, type}) {
     return(
       <table className="calendar-body">
-        <DayLabels labels={["일", "월", "화", "수", "목", "금", "토"]}/>
-        <Days year={year} month={month} type={type}/>
+        <DayLabels backgroundColor={backgroundColor} labels={["일", "월", "화", "수", "목", "금", "토"]}/>
+        <Days backgroundColor={backgroundColor} year={year} month={month} type={type}/>
       </table>
     )
 }
 
-function DayLabels({labels}){
+function DayLabels({backgroundColor, labels}){
+  var style = {
+    'background-color' : backgroundColor
+  }
+
   return(
     <thead className="tName">
       <tr>
-        {labels.map((label, index) => <th key={index}>{label}</th>)}
+        {labels.map((label, index) => <th style={style} key={index}>{label}</th>)}
       </tr>
     </thead>
   )
 }
+
 
 export default CalendarBody;

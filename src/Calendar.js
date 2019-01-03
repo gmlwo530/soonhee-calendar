@@ -15,7 +15,6 @@ class Calendar extends Component{
     let backgroundColor = "#fff";
     if (props.type != undefined) type = props.type;
     if (props.backgroundColor != undefined) backgroundColor = props.backgroundColor;
-
     if (backgroundColor != state.backgroundColor){
       return{
         backgroundColor: backgroundColor,
@@ -45,7 +44,7 @@ class Calendar extends Component{
       year: this.date.getFullYear(),
       month: this.date.getMonth(),
       type: props.type || 1, // 1 : 다중 선택, 2 : 범위 선택, 3 : 클릭한 날짜를 다시 클릭 했을 시 메모
-      styles: props.styles
+      backgroundColor: props.backgroundColor
     };
 
     this._prevMonth = this._prevMonth.bind(this);
@@ -136,9 +135,9 @@ class Calendar extends Component{
   render(){
     return(
       <div className="calendar-container">
-        <Header prevMonth={this._prevMonth} nextMonth={this._nextMonth} year={this.state.year} month={this.state.month}/>
+        <Header backgroundColor = {this.state.backgroundColor} prevMonth={this._prevMonth} nextMonth={this._nextMonth} year={this.state.year} month={this.state.month}/>
         <div className="body-container">
-          <CalendarBody year={this.state.year} month={this.state.month} type={this.state.type} />
+          <CalendarBody backgroundColor = {this.state.backgroundColor} year={this.state.year} month={this.state.month} type={this.state.type} />
           <div className="form-container">
             <CalendarForm onCreate={this._getFormData}/>
           </div>
@@ -148,12 +147,15 @@ class Calendar extends Component{
   }
 }
 
-function Header({prevMonth, nextMonth, year, month}){
+function Header({backgroundColor, prevMonth, nextMonth, year, month}){
+  var style= {
+    'color': backgroundColor
+}
   return(
     <div className="header-container">
-      <button className="calendar-button" onClick={prevMonth}><FontAwesomeIcon icon={faAngleLeft}/></button>
+      <button className="calendar-button" onClick={prevMonth}><FontAwesomeIcon style={style} icon={faAngleLeft}/></button>
       <div className="calendarYearMonth">{year}.{month + 1}.</div>
-      <button className="calendar-button" onClick={nextMonth}><FontAwesomeIcon icon={faAngleRight}/></button>
+      <button className="calendar-button" onClick={nextMonth}><FontAwesomeIcon style={style} icon={faAngleRight}/></button>
     </div>
   )
 }

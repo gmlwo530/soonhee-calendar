@@ -4,7 +4,11 @@ import './Day.css';
 import {soonHeeCalendar} from './global';
 
 
+
 class Day extends Component{
+
+ 
+
   constructor(props){
     super(props);
 
@@ -12,6 +16,7 @@ class Day extends Component{
       day: props.day,
       milliseconds: props.milliseconds,
       type: props.type,
+      backgroundColor: props.backgroundColor,
       isActivate: this._checkActivate(props.milliseconds, props.type),
       text: soonHeeCalendar.dayTextObject[props.milliseconds]
     };
@@ -39,6 +44,7 @@ class Day extends Component{
       day: props.day,
       milliseconds: props.milliseconds,
       type: props.type,
+      backgroundColor: props.backgroundColor,
       isActivate: this._checkActivate(props.milliseconds, props.type),
       text: soonHeeCalendar.dayTextObject[props.milliseconds]
     });
@@ -79,7 +85,6 @@ class Day extends Component{
   }
 
   _selectDay = () => {
-
     var changedActivate = !this.state.isActivate;
     if (changedActivate){
         soonHeeCalendar.selectedDays.push(this.state.milliseconds);
@@ -196,12 +201,23 @@ class Day extends Component{
     let startEndDate = soonHeeCalendar.startEndDateArr[0];
     return (startEndDate.startDate == milliseconds) || (startEndDate.endDate == milliseconds);
   }
+ 
 
   render(){
+    var style = {
+      'background-color': this.state.backgroundColor
+    }
+    var none ={
+      'background-color': 'initial'
+    }
+    var less = {
+      'background-color' : this.state.backgroundColor.concat('31')
+    }
+
     return(
-      <td className={this.state.day !== "" ? (this.state.isActivate ? "dayCell active" : "dayCell") : "no-day"} key={this.state.day} onClick={this._clickMethodByType.bind(this, this.state.type)}>
+      <td style={this.state.isActivate ? less : none} className={this.state.day !== "" ? (this.state.isActivate ? "dayCell active" : "dayCell") : "no-day"} key={this.state.day} onClick={this._clickMethodByType.bind(this, this.state.type)}>
         <div>
-          <p className={this._isStartEndPoint(this.state.milliseconds) ? "start-end-point" : ""}>{this.state.day}</p>
+          <p style={this._isStartEndPoint(this.state.milliseconds) ? style : none} className={this._isStartEndPoint(this.state.milliseconds) ? "start-end-point" : ""}>{this.state.day}</p>
           {this.state.day !== "" ? (
             <ul className="day-text-box">
               <li className="day-text" style={{overflow: 'hidden', textOverflow: 'ellipsis'}}>{this._truncate(this.state.text)}</li>
