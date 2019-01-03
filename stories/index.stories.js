@@ -9,7 +9,7 @@ import { Button, Welcome } from '@storybook/react/demo';
 import { Calendar } from '../src/index';
 
 const state = {
-  type: 2,
+  type: 1,
   backgroundColor: '#4286f4',
   rawDayTextObject: {
     "20181220":"dfdf",
