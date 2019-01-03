@@ -82,6 +82,7 @@ var Days = function (_Component) {
       month: props.month,
       year: props.year,
       type: props.type,
+      backgroundColor: props.backgroundColor,
       daysArray: Days._getDaysArray(Days._getFirstDay(props.year, props.month), Days._daysInMonth(props.year, props.month))
     };
 
@@ -107,6 +108,7 @@ var Days = function (_Component) {
                   day: day,
                   milliseconds: _this2._changeToMilliseconds(day),
                   type: _this2.state.type,
+                  backgroundColor: _this2.state.backgroundColor,
                   dayToggle: _this2._onDayToggle
                 });
               })

@@ -52,7 +52,6 @@ var Calendar = function (_Component) {
       var backgroundColor = "#fff";
       if (props.type != undefined) type = props.type;
       if (props.backgroundColor != undefined) backgroundColor = props.backgroundColor;
-
       if (backgroundColor != state.backgroundColor) {
         return {
           backgroundColor: backgroundColor
@@ -155,7 +154,7 @@ var Calendar = function (_Component) {
       year: _this.date.getFullYear(),
       month: _this.date.getMonth(),
       type: props.type || 1, // 1 : 다중 선택, 2 : 범위 선택, 3 : 클릭한 날짜를 다시 클릭 했을 시 메모
-      styles: props.styles
+      backgroundColor: props.backgroundColor
     };
 
     _this._prevMonth = _this._prevMonth.bind(_this);
@@ -179,11 +178,11 @@ var Calendar = function (_Component) {
       return _react2.default.createElement(
         'div',
         { className: 'calendar-container' },
-        _react2.default.createElement(Header, { prevMonth: this._prevMonth, nextMonth: this._nextMonth, year: this.state.year, month: this.state.month }),
+        _react2.default.createElement(Header, { backgroundColor: this.state.backgroundColor, prevMonth: this._prevMonth, nextMonth: this._nextMonth, year: this.state.year, month: this.state.month }),
         _react2.default.createElement(
           'div',
           { className: 'body-container' },
-          _react2.default.createElement(_CalendarBody2.default, { year: this.state.year, month: this.state.month, type: this.state.type }),
+          _react2.default.createElement(_CalendarBody2.default, { backgroundColor: this.state.backgroundColor, year: this.state.year, month: this.state.month, type: this.state.type }),
           _react2.default.createElement(
             'div',
             { className: 'form-container' },
@@ -198,18 +197,22 @@ var Calendar = function (_Component) {
 }(_react.Component);
 
 function Header(_ref2) {
-  var prevMonth = _ref2.prevMonth,
+  var backgroundColor = _ref2.backgroundColor,
+      prevMonth = _ref2.prevMonth,
       nextMonth = _ref2.nextMonth,
       year = _ref2.year,
       month = _ref2.month;
 
+  var style = {
+    'color': backgroundColor
+  };
   return _react2.default.createElement(
     'div',
     { className: 'header-container' },
     _react2.default.createElement(
       'button',
       { className: 'calendar-button', onClick: prevMonth },
-      _react2.default.createElement(_reactFontawesome.FontAwesomeIcon, { icon: _freeSolidSvgIcons.faAngleLeft })
+      _react2.default.createElement(_reactFontawesome.FontAwesomeIcon, { style: style, icon: _freeSolidSvgIcons.faAngleLeft })
     ),
     _react2.default.createElement(
       'div',
@@ -222,7 +225,7 @@ function Header(_ref2) {
     _react2.default.createElement(
       'button',
       { className: 'calendar-button', onClick: nextMonth },
-      _react2.default.createElement(_reactFontawesome.FontAwesomeIcon, { icon: _freeSolidSvgIcons.faAngleRight })
+      _react2.default.createElement(_reactFontawesome.FontAwesomeIcon, { style: style, icon: _freeSolidSvgIcons.faAngleRight })
     )
   );
 }

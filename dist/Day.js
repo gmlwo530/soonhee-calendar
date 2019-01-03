@@ -73,7 +73,6 @@ var Day = function (_Component) {
     };
 
     _this._selectDay = function () {
-
       var changedActivate = !_this.state.isActivate;
       if (changedActivate) {
         _global.soonHeeCalendar.selectedDays.push(_this.state.milliseconds);
@@ -197,6 +196,7 @@ var Day = function (_Component) {
       day: props.day,
       milliseconds: props.milliseconds,
       type: props.type,
+      backgroundColor: props.backgroundColor,
       isActivate: _this._checkActivate(props.milliseconds, props.type),
       text: _global.soonHeeCalendar.dayTextObject[props.milliseconds]
     };
@@ -227,6 +227,7 @@ var Day = function (_Component) {
         day: props.day,
         milliseconds: props.milliseconds,
         type: props.type,
+        backgroundColor: props.backgroundColor,
         isActivate: this._checkActivate(props.milliseconds, props.type),
         text: _global.soonHeeCalendar.dayTextObject[props.milliseconds]
       });
@@ -234,15 +235,25 @@ var Day = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
+      var style = {
+        'background-color': this.state.backgroundColor
+      };
+      var none = {
+        'background-color': 'initial'
+      };
+      var less = {
+        'background-color': this.state.backgroundColor.concat('31')
+      };
+
       return _react2.default.createElement(
         'td',
-        { className: this.state.day !== "" ? this.state.isActivate ? "dayCell active" : "dayCell" : "no-day", key: this.state.day, onClick: this._clickMethodByType.bind(this, this.state.type) },
+        { style: this.state.isActivate ? less : none, className: this.state.day !== "" ? this.state.isActivate ? "dayCell active" : "dayCell" : "no-day", key: this.state.day, onClick: this._clickMethodByType.bind(this, this.state.type) },
         _react2.default.createElement(
           'div',
           null,
           _react2.default.createElement(
             'p',
-            { className: this._isStartEndPoint(this.state.milliseconds) ? "start-end-point" : "" },
+            { style: this._isStartEndPoint(this.state.milliseconds) ? style : none, className: this._isStartEndPoint(this.state.milliseconds) ? "start-end-point" : "" },
             this.state.day
           ),
           this.state.day !== "" ? _react2.default.createElement(

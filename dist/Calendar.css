@@ -8,6 +8,7 @@
 .calendar-container{
   width: 500px;
   height: 500px;
+  background: #fff;
 }
 
 .calendarYearMonth{
@@ -25,7 +26,7 @@
 
 .body-container{
   position: relative;
-  height: 80%;
+  height: 90%;
 }
 
 
@@ -45,6 +46,7 @@
 .calendar-button{
   border: none;
   padding: 20px;
+  background: #fff;
 }
 .calendar-button svg{
   font-size: 20px;
