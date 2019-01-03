@@ -60,6 +60,27 @@ class Foo extends Components{
 }
 ```
 
+##### Change SoonHee Calendar Background-Color
+
+##### Change SoonHee Calendar Type
+
+```javascript
+
+class Foo extends Components{
+    state = {
+        soonHeeCalendar: {
+            backgroundColor: '#fa7268'
+        }
+    }
+    render(){
+        return(
+            ...
+            <Calendar backgroundColor={this.state.soonHeeCalendar.backgroundColor} />
+            ...
+        )
+    }
+}
+```
 
 
 

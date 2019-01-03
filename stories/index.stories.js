@@ -10,7 +10,7 @@ import { Calendar } from '../src/index';
 
 const state = {
   type: 2,
-  backgroundColor: '#fa7268',
+  backgroundColor: '#4286f4',
   rawDayTextObject: {
     "20181220":"dfdf",
     "20181221":"dfdfdd",
