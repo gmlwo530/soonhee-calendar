@@ -98,7 +98,8 @@ var Day = function (_Component) {
         }
 
         _this.setState({
-          isActivate: changedActivate
+          isActivate: changedActivate,
+          backgroundColor: backgroundColor
         });
       } else if (endDate === undefined) {
         if (startDate === state.milliseconds) {
@@ -128,7 +129,8 @@ var Day = function (_Component) {
         }
 
         _this.setState({
-          isActivate: _changedActivate
+          isActivate: _changedActivate,
+          backgroundColor: backgroundColor
         });
 
         _this.props.dayToggle();
@@ -149,14 +151,16 @@ var Day = function (_Component) {
         _global.soonHeeCalendar.textSelectedDay = _this.state.milliseconds;
 
         _this.setState({
-          isActivate: changedActivate
+          isActivate: changedActivate,
+          backgroundColor: backgroundColor
         });
       } else {
         if (_global.soonHeeCalendar.textSelectedDay !== 0) {
           document.querySelector(".form-container").style.display = "block";
         } else {
           _this.setState({
-            isActivate: changedActivate
+            isActivate: changedActivate,
+            backgroundColor: backgroundColor
           });
         }
       }

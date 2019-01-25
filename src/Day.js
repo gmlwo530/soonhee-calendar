@@ -6,9 +6,6 @@ import {soonHeeCalendar} from './global';
 
 
 class Day extends Component{
-
- 
-
   constructor(props){
     super(props);
 
@@ -205,7 +202,7 @@ class Day extends Component{
     let startEndDate = soonHeeCalendar.startEndDateArr[0];
     return (startEndDate.startDate == milliseconds) || (startEndDate.endDate == milliseconds);
   }
- 
+
 
   render(){
     var style = {

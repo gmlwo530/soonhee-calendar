@@ -29,7 +29,6 @@ class Days extends Component{
   constructor(props){
     super(props);
 
-    console.log(props);
     this.state = {
       month: props.month,
       year: props.year,

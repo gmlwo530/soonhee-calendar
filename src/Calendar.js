@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import './Calendar.css'
-import CalendarBody from './CalendarBody';
+import Days from './Days'
 import CalendarForm from './CalendarForm';
 import {soonHeeCalendar} from './global';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -137,7 +137,10 @@ class Calendar extends Component{
       <div className="calendar-container">
         <Header backgroundColor = {this.state.backgroundColor} prevMonth={this._prevMonth} nextMonth={this._nextMonth} year={this.state.year} month={this.state.month}/>
         <div className="body-container">
-          <CalendarBody backgroundColor = {this.state.backgroundColor} year={this.state.year} month={this.state.month} type={this.state.type} />
+          <table className="calendar-body">
+            <DayLabels backgroundColor={this.state.backgroundColor} labels={["일", "월", "화", "수", "목", "금", "토"]}/>
+            <Days backgroundColor={this.state.backgroundColor} year={this.state.year} month={this.state.month} type={this.state.type}/>
+          </table>
           <div className="form-container">
             <CalendarForm onCreate={this._getFormData}/>
           </div>
@@ -150,13 +153,27 @@ class Calendar extends Component{
 function Header({backgroundColor, prevMonth, nextMonth, year, month}){
   var style= {
     'color': backgroundColor
-}
+  }
   return(
     <div className="header-container">
       <button className="calendar-button" onClick={prevMonth}><FontAwesomeIcon style={style} icon={faAngleLeft}/></button>
       <div className="calendarYearMonth">{year}.{month + 1}.</div>
       <button className="calendar-button" onClick={nextMonth}><FontAwesomeIcon style={style} icon={faAngleRight}/></button>
     </div>
+  )
+}
+
+function DayLabels({backgroundColor, labels}){
+  var style = {
+    'background-color' : backgroundColor
+  }
+
+  return(
+    <thead className="tName">
+      <tr>
+        {labels.map((label, index) => <th style={style} key={index}>{label}</th>)}
+      </tr>
+    </thead>
   )
 }
 
